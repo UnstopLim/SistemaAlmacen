@@ -47,6 +47,9 @@ namespace SistemaAlmacen.Controllers
         }
 
 
+        //hola verfica esta version de git
+
+
         [HttpGet("GetProductoCategoria")]
         public async Task<IActionResult> GetProductoCategoria()
         {
