@@ -30,7 +30,6 @@ namespace SistemaAlmacen.DTO
         public string Descripcción { get; set; }
         public List<GetProductoDTO> Producto { get; set; }
     }
-
     public class GetProductoDTO
     {
         public int IdProducto { get; set; }

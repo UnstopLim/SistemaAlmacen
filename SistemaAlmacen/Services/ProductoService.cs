@@ -58,41 +58,55 @@ namespace SistemaAlmacen.Services
         public async Task<List<GetCategoriaDTO>> GetProductoCategoriaService()
         {
             //sin automapper
-            var ListCategoria = await _repository.GetCategoria();
-            var Result = new List<GetCategoriaDTO>();
-            foreach(var itemCategoria in ListCategoria)
+            //var ListCategoria = await _repository.GetCategoria();
+            //var Result = new List<GetCategoriaDTO>();
+            //foreach(var itemCategoria in ListCategoria)
+            //{
+            //    var ListProductos = await _repository.GetProducto(itemCategoria.IdCategoria);
+            //    var ListProductosInstanacia = new List<GetProductoDTO>();
+            //    foreach (var item in ListProductos)
+            //    {
+            //        ListProductosInstanacia.Add(new GetProductoDTO
+            //        {
+            //            IdProducto = item.IdProducto,
+            //            IdCategoria = item.IdCategoria,
+            //            NombreProducto = item.NombreProducto,
+            //            Descripcción = item.Descripcción,
+            //            CostoProducto = item.CostoProducto,
+            //            Cantidad = item.Cantidad,
+            //            TipoEnvase = item.TipoEnvase,
+            //            UnidadMedida = item.UnidadMedida,
+            //        });
+            //    }
+            //    Result.Add(new GetCategoriaDTO
+            //    {
+            //        IdCategoria = itemCategoria.IdCategoria,
+            //        NombreCategoria = itemCategoria.NombreCategoria,
+            //        Descripcción = itemCategoria.Descripcción,
+            //        Producto = ListProductosInstanacia
+            //    });
+            //}
+            //return Result;
+
+            //mappeo automapper
+            //obtenemos toda la lista de categoria
+            var GetCategoria = await _repository.GetCategoria();
+            var ListCategoria = new List<GetCategoriaDTO>();
+            foreach(var itemCategoria in GetCategoria)
             {
-                var ListProductos = await _repository.GetProducto(itemCategoria.IdCategoria);
-                var ListProductosInstanacia = new List<GetProductoDTO>();
-                foreach (var item in ListProductos)
+                var GetProducto = await _repository.GetProducto(itemCategoria.IdCategoria);
+                var MapperCategoria = _mapper.Map<GetCategoriaDTO>(itemCategoria);
+                MapperCategoria.Producto = new List<GetProductoDTO>();
+                
+                foreach(var itemProducto in GetProducto)
                 {
-                    ListProductosInstanacia.Add(new GetProductoDTO
-                    {
-                        IdProducto = item.IdProducto,
-                        IdCategoria = item.IdCategoria,
-                        NombreProducto = item.NombreProducto,
-                        Descripcción = item.Descripcción,
-                        CostoProducto = item.CostoProducto,
-                        Cantidad = item.Cantidad,
-                        TipoEnvase = item.TipoEnvase,
-                        UnidadMedida = item.UnidadMedida,
-                    });
+                    var MapperProducto = _mapper.Map<GetProductoDTO>(itemProducto);
+                    MapperCategoria.Producto.Add(MapperProducto);
                 }
-                Result.Add(new GetCategoriaDTO
-                {
-                    IdCategoria = itemCategoria.IdCategoria,
-                    NombreCategoria = itemCategoria.NombreCategoria,
-                    Descripcción = itemCategoria.Descripcción,
-                    Producto = ListProductosInstanacia
-                });
+                ListCategoria.Add(MapperCategoria);
             }
 
-
-            return Result;
-            //mappeo automapper
-
-
-
+            return ListCategoria;
         }
 
 

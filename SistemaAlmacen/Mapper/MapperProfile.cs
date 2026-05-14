@@ -19,6 +19,12 @@ namespace SistemaAlmacen.Mapper
             //Get mappeo para retornar
             //         origen            Destino
             //CreateMap< Producto, PostProductoDTO>();
+            CreateMap<Categoria, GetCategoriaDTO>();
+            CreateMap<Producto, GetProductoDTO>();
+
+
+            CreateMap<Roles, GetRolesAllDTO>();
+
 
 
 

@@ -34,10 +34,11 @@ builder.Services.AddAutoMapper(x =>
 
 //para repository
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 //service
 builder.Services.AddScoped<IProductoService,ProductoService>();
-
+builder.Services.AddScoped<IUsuarioService,UsuarioService>();
 
 
 
