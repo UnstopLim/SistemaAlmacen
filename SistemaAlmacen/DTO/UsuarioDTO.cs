@@ -23,16 +23,54 @@ namespace SistemaAlmacen.DTO
         public string Celular { get; set; }
         public bool EstadoUsuario { get; set; }
         //Roles detalle
-        public int IdUsuario { get; set; }
         public int IdRoles { get; set; }
 
         //Credenciales
-
         public string Correo { get; set; }
         public string Password { get; set; }
-        public int IdUsuarioCredenciales { get; set; }
-  
     }
+
+
+    public class GetUsuarioRolesDTO
+    {
+        //tabla usuario
+        public string Ci { get; set; }
+        public string NombreUsuario { get; set; }
+        public string ApPaterno { get; set; }
+        public string Dirrección { get; set; }
+        public string gmail { get; set; }
+        //Roles
+        public string NombreRol { get; set; }
+
+        //Credenciales
+        public string Correo { get; set; }
+        public string Password { get; set; }
+    }
+
+    //DToCamion
+
+    public class PostCamionDTO
+    {
+        public string PlacaCamion { get; set; }
+        public string ModeloCamion { get; set; }
+        public int Capacidad { get; set; }
+        public bool StadoCamion { get; set; }
+        public int IdUsuario { get; set; }
+    }
+
+    public class GetCamionDTO
+    {
+        public int IdCamion { get; set; }
+        public string PlacaCamion { get; set; }
+        public string ModeloCamion { get; set; }
+        public int Capacidad { get; set; }
+        public bool StadoCamion { get; set; }
+        public string NombreChofer { get; set; }
+        public string ApellidoChofer { get; set; }
+
+    }
+
+
 
 
 

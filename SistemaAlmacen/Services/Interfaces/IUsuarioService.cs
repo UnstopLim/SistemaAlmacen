@@ -7,5 +7,10 @@ namespace SistemaAlmacen.Services.Interfaces
         Task PostRolesService(string NombreRol);
         Task<List<GetRolesAllDTO>> GetRolesAllService();
 
+        Task PostUsuarioRolesService(PostUsuarioRolesDTO postUsuarioRolesDTO);
+
+        //getUsuario Roles usuario credenciales
+        Task<List<GetUsuarioRolesDTO>> GetUsuarioRolService();
+
     }
 }

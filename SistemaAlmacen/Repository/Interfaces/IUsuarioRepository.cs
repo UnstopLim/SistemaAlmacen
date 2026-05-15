@@ -1,4 +1,5 @@
-﻿using SistemaAlmacen.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaAlmacen.Model;
 
 namespace SistemaAlmacen.Repository.Interfaces
 {
@@ -10,11 +11,30 @@ namespace SistemaAlmacen.Repository.Interfaces
         Task PostUsuarioRepository(Usuario usuario);
         Task PostRolesUsuarioRepository(RolesDetalle rolesUsuario);
         Task PostCredencialesRepository(Credenciales credenciales);
+        //tabla post camion
+        Task PostCamion(Camion camion);
 
 
         //get
-        Task<Roles?> GetRolesIdRepository(int idRoles);
         Task<List<Roles>> GetRolesAllRepository();
+        //get roles,RoelsDetalle,Credneciales,usuario
+        //getRolesId
+        Task<Roles?> GetRolesIdRepository(int idRoles);
+        //tabla RolesDetalle , obtener por idUsuario
+        Task<RolesDetalle?> GetRolesDetalleRepository(int idUsuario);
+
+        //tabla credenciales , obtener por idUsuario
+        Task<Credenciales?> GetCredencialesRepository(int IdUsuario);
+
+
+        //tabla usuarios toda la lista de usuarios
+        Task<List<Usuario>> GetUsuariosAllRepository();
+
+        //getCamion
+        Task<List<Camion>> GetCamionAllRepository();
+        
+
+      
     
 
     }

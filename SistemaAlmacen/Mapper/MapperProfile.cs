@@ -15,6 +15,15 @@ namespace SistemaAlmacen.Mapper
             //         origen            Destino
             CreateMap<PostProductoDTO, Producto>();
 
+            //tabla usuario roles credenciales
+            CreateMap<PostUsuarioRolesDTO,Usuario>();
+            CreateMap<PostUsuarioRolesDTO,RolesDetalle>();
+            CreateMap<PostUsuarioRolesDTO,Credenciales>();
+
+            //getUsuario Roles usuario credenciales
+            CreateMap<Usuario, GetUsuarioRolesDTO>();
+
+
 
             //Get mappeo para retornar
             //         origen            Destino

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SistemaAlmacen.DTO;
 using SistemaAlmacen.Services.Interfaces;
 
 namespace SistemaAlmacen.Controllers
@@ -47,6 +48,45 @@ namespace SistemaAlmacen.Controllers
                 return StatusCode(500, $"Error al mostrar los roles: {ex.ToString()}");
             }
         }
+
+
+        [HttpPost("PostUsuarioRoles")]
+        public async Task<IActionResult> PostUsuarioRoles([FromBody] PostUsuarioRolesDTO postUsuarioRolesDTO )
+        {
+            try
+            {
+                await _usuarioService.PostUsuarioRolesService(postUsuarioRolesDTO);
+                return Ok("Usuario creado correctamente");
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear el usuario: {ex.ToString()}");
+            }
+
+
+        }
+
+        [HttpGet("GetUsuarioRoles")]
+        public async Task<IActionResult> GetUsuarioRoles()
+        {
+            try
+            {
+                var GetUsuarioAllRol = await _usuarioService.GetUsuarioRolService();
+                return Ok(GetUsuarioAllRol);
+
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al mostrar los roles: {ex.ToString()}");
+            }
+        }
+
+
+
+
+
 
 
 
