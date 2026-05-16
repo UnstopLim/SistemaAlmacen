@@ -45,14 +45,6 @@ namespace SistemaAlmacen.Repository
 
 
 
-
-
-
-
-
-
-
-
         //get 
         public async Task<List<Roles>> GetRolesAllRepository()
         {
@@ -89,6 +81,31 @@ namespace SistemaAlmacen.Repository
         {
             return await _context.Camions.ToListAsync();
         }
+        //get usuario por el id
+        public async Task<Usuario?> GetIdUsuario(int idUsuario)
+        {
+            return await _context.Usuarios.FindAsync(idUsuario);
+        }
+        //UPDATE
+        public async Task<Camion?> GetIdCamionRepository(int idCamion)
+        {
+            return await _context.Camions.FindAsync(idCamion);
+        }
+
+        public async Task UpdateCamionRepository(Camion camion)
+        {
+            _context.Camions.Update(camion);
+            await _context.SaveChangesAsync();
+        }
+        //delete
+        public async Task DeleteCamionRepository(Camion camion)
+        {
+            _context.Camions.Remove(camion);
+            await _context.SaveChangesAsync();
+        }
+
+
+
 
 
 

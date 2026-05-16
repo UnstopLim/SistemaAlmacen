@@ -63,8 +63,6 @@ namespace SistemaAlmacen.Controllers
             {
                 return StatusCode(500, $"Error al crear el usuario: {ex.ToString()}");
             }
-
-
         }
 
         [HttpGet("GetUsuarioRoles")]
@@ -84,7 +82,65 @@ namespace SistemaAlmacen.Controllers
         }
 
 
+        [HttpPost("PostPostCamion")]
+        public async Task<IActionResult> PostPostCamion([FromBody] PostCamionDTO postCamionDTO)
+        {
+            try
+            {
+                await _usuarioService.PostCamion(postCamionDTO);
+                return Ok("Camion registrado  correctamente");
 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear el usuario: {ex.ToString()}");
+            }
+        }
+
+        [HttpGet("GetCamionUsuario")]
+        public async Task<IActionResult> GetCamionUsuario()
+        {
+            try
+            {
+                var GetCamionUsuario = await _usuarioService.GetCamionUsuarioService();
+                return Ok(GetCamionUsuario);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al mostrar los roles: {ex.ToString()}");
+            }
+        }
+
+        [HttpPut("UpdateCamion")]
+        public async Task<IActionResult> UpdateCamion([FromBody] UpdateCamionDTO updateCamionDTO)
+        {
+            try
+            {
+                await _usuarioService.UpdateCamion(updateCamionDTO);
+                return Ok("Se actualiso correctamente");
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al mostrar los roles: {ex.ToString()}");
+            }
+        }
+
+        [HttpDelete("DeleteCamion/{idCamion}")]
+        public async Task<IActionResult> DeleteCamion(int idCamion)
+        {
+            try
+            {
+                await _usuarioService.DeleteCamion(idCamion);
+                return Ok("Se eliminó correctamente");
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al mostrar los roles: {ex.ToString()}");
+            }
+        }
 
 
 

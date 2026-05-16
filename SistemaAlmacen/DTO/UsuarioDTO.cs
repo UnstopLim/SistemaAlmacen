@@ -54,7 +54,6 @@ namespace SistemaAlmacen.DTO
         public string PlacaCamion { get; set; }
         public string ModeloCamion { get; set; }
         public int Capacidad { get; set; }
-        public bool StadoCamion { get; set; }
         public int IdUsuario { get; set; }
     }
 
@@ -65,9 +64,18 @@ namespace SistemaAlmacen.DTO
         public string ModeloCamion { get; set; }
         public int Capacidad { get; set; }
         public bool StadoCamion { get; set; }
+        //tabla usuario
         public string NombreChofer { get; set; }
         public string ApellidoChofer { get; set; }
 
+    }
+    //update Camion
+    public class UpdateCamionDTO
+    {
+        public int IdCamionDTO { get; set; }
+        public string PlacaCamion { get; set; }
+        public string ModeloCamion { get; set; }
+        public bool StadoCamion { get; set; }
     }
 
 

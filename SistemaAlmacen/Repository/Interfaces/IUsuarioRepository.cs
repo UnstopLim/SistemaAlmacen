@@ -32,7 +32,13 @@ namespace SistemaAlmacen.Repository.Interfaces
 
         //getCamion
         Task<List<Camion>> GetCamionAllRepository();
-        
+        //get usuario por el id
+        Task<Usuario?> GetIdUsuario(int idUsuario);
+        //Update tabala camion
+        Task<Camion?> GetIdCamionRepository(int idCamion);
+        Task UpdateCamionRepository(Camion camion);
+        //delete 
+        Task DeleteCamionRepository(Camion camion);
 
       
     

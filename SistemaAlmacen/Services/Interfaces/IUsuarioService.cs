@@ -11,6 +11,12 @@ namespace SistemaAlmacen.Services.Interfaces
 
         //getUsuario Roles usuario credenciales
         Task<List<GetUsuarioRolesDTO>> GetUsuarioRolService();
+        //PostCamion
+        Task PostCamion(PostCamionDTO postCamionDTO);
+        //get camion usuario
+        Task<List<GetCamionDTO>> GetCamionUsuarioService();
+        Task UpdateCamion (UpdateCamionDTO updateCamionDTO);
+        Task DeleteCamion(int idCamion);
 
     }
 }

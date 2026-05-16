@@ -83,6 +83,66 @@ namespace SistemaAlmacen.Services
             return ListUsuario;
         }
 
+        //PostCamion
+        public  async Task PostCamion(PostCamionDTO postCamionDTO)
+        {
+            // mapeo del deto al la tabla camion
+            var PostCamion = _mapper.Map<Camion>(postCamionDTO);
+            PostCamion.StadoCamion = true;
+
+            await _usuarioRepository.PostCamion(PostCamion);
+        }
+        //get camion usuario
+        public async Task<List<GetCamionDTO>> GetCamionUsuarioService()
+        {
+            //get Lista de camiones
+            var GetCamionList = await _usuarioRepository.GetCamionAllRepository();
+            var ListCamion = new List<GetCamionDTO>();
+             
+            foreach(var itemCamion in GetCamionList)
+            {
+                //traemos el objeto o datos de la tabla usuario por el id 
+                var GetUsuario = await _usuarioRepository.GetIdUsuario(itemCamion.IdUsuario);
+                //mapear tabla camion por automatico
+                var MapperCamion = _mapper.Map<GetCamionDTO>(itemCamion);
+                //mapear manualmente el resto de la tabla
+                MapperCamion.NombreChofer = GetUsuario.NombreUsuario;
+                MapperCamion.ApellidoChofer = GetUsuario.ApPaterno;
+                ListCamion.Add(MapperCamion);
+            }
+            return ListCamion;
+        }
+
+
+        public async Task UpdateCamion(UpdateCamionDTO updateCamionDTO)
+        {
+            //mapear del dto a la tabla camion
+            //obtenemos el objeto camion por el id
+            var GetCamion = await _usuarioRepository.GetIdCamionRepository(updateCamionDTO.IdCamionDTO);
+            //mapear camion con el dto
+            //mapear manaulmente
+            //GetCamion.PlacaCamion = updateCamionDTO.PlacaCamion;
+            //GetCamion.ModeloCamion = updateCamionDTO.ModeloCamion;
+            //GetCamion.StadoCamion = updateCamionDTO.StadoCamion;
+            //usando autoMaper 
+            var MapperCAmion = _mapper.Map(updateCamionDTO, GetCamion);
+            await _usuarioRepository.UpdateCamionRepository(MapperCAmion);
+        }
+
+
+        public async Task DeleteCamion(int idCamion)
+        {
+            //mapear del dto a la tabla camion
+            //obtenemos el objeto camion por el id
+            var GetCamion = await _usuarioRepository.GetIdCamionRepository(idCamion);
+            await _usuarioRepository.DeleteCamionRepository(GetCamion);
+        }
+
+
+
+
+
+
 
 
 

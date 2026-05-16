@@ -23,6 +23,10 @@ namespace SistemaAlmacen.Mapper
             //getUsuario Roles usuario credenciales
             CreateMap<Usuario, GetUsuarioRolesDTO>();
 
+            //         origen        Destino
+            CreateMap<PostCamionDTO, Camion>();
+
+
 
 
             //Get mappeo para retornar
@@ -30,9 +34,12 @@ namespace SistemaAlmacen.Mapper
             //CreateMap< Producto, PostProductoDTO>();
             CreateMap<Categoria, GetCategoriaDTO>();
             CreateMap<Producto, GetProductoDTO>();
-
-
             CreateMap<Roles, GetRolesAllDTO>();
+            //        origen    Destino
+            CreateMap<Camion, GetCamionDTO>();
+            //update
+            //        origen         Destino
+            CreateMap<UpdateCamionDTO,Camion>();
 
 
 
