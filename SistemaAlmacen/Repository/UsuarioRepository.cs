@@ -12,6 +12,12 @@ namespace SistemaAlmacen.Repository
         {
             _context = context;
         }
+        //login
+        public async Task<Credenciales?> GetCredencialesCorreo(string Correo)
+        {
+            return await _context.Credenciales.FirstOrDefaultAsync(x => x.Correo == Correo);
+        }
+
 
         //post meodo ya con acciones 
         public async Task PostRolesRepository(Roles roles)

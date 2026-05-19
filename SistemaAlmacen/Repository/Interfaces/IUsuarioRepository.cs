@@ -7,6 +7,7 @@ namespace SistemaAlmacen.Repository.Interfaces
     {
         //abstraccion metodod sin acciones
         //post
+        Task<Credenciales?> GetCredencialesCorreo(string Correo);
         Task PostRolesRepository(Roles roles);
         Task PostUsuarioRepository(Usuario usuario);
         Task PostRolesUsuarioRepository(RolesDetalle rolesUsuario);

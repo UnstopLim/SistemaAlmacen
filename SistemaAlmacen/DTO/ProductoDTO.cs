@@ -27,7 +27,7 @@ namespace SistemaAlmacen.DTO
     {
         public int IdCategoria { get; set; }
         public string NombreCategoria { get; set; }
-        public string Descripcción { get; set; }
+        public string Descripccion { get; set; }
         public List<GetProductoDTO> Producto { get; set; }
     }
     public class GetProductoDTO
@@ -35,7 +35,7 @@ namespace SistemaAlmacen.DTO
         public int IdProducto { get; set; }
         public int IdCategoria { get; set; }
         public string NombreProducto { get; set; }
-        public string Descripcción { get; set; }
+        public string Descripccion { get; set; }
         public decimal CostoProducto { get; set; }
         public int Cantidad { get; set; }
         public string TipoEnvase { get; set; }

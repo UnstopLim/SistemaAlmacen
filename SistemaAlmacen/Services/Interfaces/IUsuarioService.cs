@@ -4,6 +4,7 @@ namespace SistemaAlmacen.Services.Interfaces
 {
     public interface IUsuarioService
     {
+        Task<LoginResponceDTO?> LoginService(LoginRequetsDTO loginRequetsDTO);
         Task PostRolesService(string NombreRol);
         Task<List<GetRolesAllDTO>> GetRolesAllService();
 

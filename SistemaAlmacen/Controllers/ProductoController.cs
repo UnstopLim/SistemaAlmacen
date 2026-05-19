@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaAlmacen.DTO;
 using SistemaAlmacen.Services.Interfaces;
 
 namespace SistemaAlmacen.Controllers
 {
+    
     [ApiController]
     [Route("api/[Controller]")]
 
@@ -48,7 +50,6 @@ namespace SistemaAlmacen.Controllers
 
 
         //hola verfica esta version de git
-
 
         [HttpGet("GetProductoCategoria")]
         public async Task<IActionResult> GetProductoCategoria()

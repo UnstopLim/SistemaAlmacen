@@ -96,11 +96,14 @@ namespace SistemaAlmacen.Services
             {
                 var GetProducto = await _repository.GetProducto(itemCategoria.IdCategoria);
                 var MapperCategoria = _mapper.Map<GetCategoriaDTO>(itemCategoria);
+                MapperCategoria.Descripccion = itemCategoria.Descripcción;
+
                 MapperCategoria.Producto = new List<GetProductoDTO>();
                 
                 foreach(var itemProducto in GetProducto)
                 {
                     var MapperProducto = _mapper.Map<GetProductoDTO>(itemProducto);
+                    MapperProducto.Descripccion = itemProducto.Descripcción;
                     MapperCategoria.Producto.Add(MapperProducto);
                 }
                 ListCategoria.Add(MapperCategoria);

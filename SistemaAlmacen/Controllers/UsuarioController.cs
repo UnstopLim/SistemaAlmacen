@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaAlmacen.DTO;
 using SistemaAlmacen.Services.Interfaces;
 
@@ -14,6 +15,29 @@ namespace SistemaAlmacen.Controllers
         {
             _usuarioService = usuarioService;
         }
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequetsDTO loginDTO)
+        {
+            try
+            {
+                var responce = await _usuarioService.LoginService(loginDTO);
+                if (responce == null)
+                {
+                    return Unauthorized(new { mensaje = "Credenciales inválidas" });
+                }
+                return Ok(responce);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al iniciar sesión: {ex.ToString()}");
+            }
+
+        }
+            
+
+
 
 
         [HttpPost("PostRoles")]

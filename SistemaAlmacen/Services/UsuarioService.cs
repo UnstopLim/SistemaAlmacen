@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using SistemaAlmacen.DTO;
 using SistemaAlmacen.Model;
 using SistemaAlmacen.Repository.Interfaces;
 using SistemaAlmacen.Services.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace SistemaAlmacen.Services
 {
@@ -10,12 +13,81 @@ namespace SistemaAlmacen.Services
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper)
+        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper, IConfiguration configuration)
         {
             _usuarioRepository = usuarioRepository;
             _mapper = mapper;
+            _configuration = configuration;
         }
+        //login
+        public async Task<LoginResponceDTO?> LoginService(LoginRequetsDTO loginRequetsDTO)
+        {
+            //logica
+            //obtenemos los credenciales  a base del correo que nos envio el frontend
+            var GetCredenciales = await _usuarioRepository.GetCredencialesCorreo(loginRequetsDTO.Correo);
+            if(GetCredenciales == null)
+            {
+                return null;
+            }
+            //obtener el usuario por el id que esta en credenciales
+            var getusuario = await _usuarioRepository.GetIdUsuario(GetCredenciales.IdUsuario);
+            //verficar contraseña que nos envio el frontend con la contraseña que esta en la base de datos
+            bool VerificarPassword = BCrypt.Net.BCrypt.Verify(loginRequetsDTO.Password, GetCredenciales.Password);
+            if(!VerificarPassword)
+                return null;
+
+            //generar el token 
+            var Token =  GenerateToken(getusuario);
+
+            //retrnar y agregar al dto  todos lo generado 
+            return new LoginResponceDTO
+            {
+                Token = Token,
+                NombreUsuario = getusuario.NombreUsuario,
+                Expiracion = DateTime.Now.AddHours(1)
+            };
+        }
+
+        private string GenerateToken(Usuario usuario)
+        {
+            var jwtSettings = _configuration.GetSection("Jwt");
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
+            //creamos las credenciales de firma utilizando la clave y el algoritmo de seguridad
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new System.Security.Claims.Claim("IdUsuario", usuario.IdUsuario.ToString()),
+                new System.Security.Claims.Claim("NombreUsuario", usuario.NombreUsuario),
+                new System.Security.Claims.Claim("ApPaterno", usuario.ApPaterno)
+            };
+
+            /// creamos el jwt 
+            /// cuerpo
+            /// Heder  tipo de token
+            /// Payload los calims
+            /// signature  la firma que se genera con la clave y el algoritmo de seguridad
+
+            var token = new JwtSecurityToken
+            (
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler ().WriteToken(token);
+
+
+
+
+
+
+        }
+        
 
 
         //post
